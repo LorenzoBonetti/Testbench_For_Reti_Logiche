@@ -20,7 +20,7 @@ signal   mem_we		: std_logic;
 
 type ram_type is array (65535 downto 0) of std_logic_vector(7 downto 0);
 --test #53 FEDE quadratino 2x2 in centro
-RAM <= (2 => "10000000", 3 =>"10000000",4 => "01000000", 12168=>"11001100", 12169=>"11001100",12296=>"11001100", 12297=>"11001100", others => (others =>'0'));
+signal RAM:ram_type:= (2 => "10000000", 3 =>"10000000",4 => "01000000", 12168=>"11001100", 12169=>"11001100",12296=>"11001100", 12297=>"11001100", others => (others =>'0'));
 
 component project_reti_logiche is 
     port (
