@@ -20,7 +20,7 @@ signal   mem_we		: std_logic;
 
 type ram_type is array (65535 downto 0) of std_logic_vector(7 downto 0);
 --test con numeri casuali
-RAM <= (2 => "00001000", 3 =>"00000111",4 => "00000011", 5=>"11001100", 12=>"11000111",19=>"11111111", 24=>"00001111", 46=>"01010111", 60=>"00111111",others => (others =>'0'));
+signal RAM:ram_type:= (2 => "00001000", 3 =>"00000111",4 => "00000011", 5=>"11001100", 12=>"11000111",19=>"11111111", 24=>"00001111", 46=>"01010111", 60=>"00111111",others => (others =>'0'));
 
 component project_reti_logiche is 
     port (
