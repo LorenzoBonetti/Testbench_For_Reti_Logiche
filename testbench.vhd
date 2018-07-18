@@ -307,6 +307,62 @@ MEM : process(tb_clk)
                 --test #54 FEDE tutta piena
                 RAM <= (2 => "11111111", 3 =>"11111111",4 => "01000000", others => ("11111111"));
                 count<=55;
+                
+            elsif count = 55 then
+                --test #55 SERGIO E MARCO prima casella inferiore alla soglia, tutto il resto maggiore della soglia
+                RAM <= (2 => "11111111", 3 =>"11111111", 4 => "10000000", 5 => "01111111", others => ("10000001"));     
+                count<=56;
+                
+            elsif count = 56 then
+                --test #56 SERGIO E MARCO prima casella inferiore alla soglia, tutto il resto uguale alla soglia
+                RAM <= (2 => "11111111", 3 =>"11111111", 4 => "10000000", 5 => "01111111", others => ("10000000"));
+                count<=57;
+                
+            elsif count = 57 then
+                --test #57 SERGIO E MARCO matrice 4x4 con 1° riga e 1° colonna superiori alla soglia, il resto inferiore
+                RAM <= (2 => "00000100", 3 => "00000100", 4 => "00000001", 5 => "00000010", 6 => "00000010", 7 => "00000010", 8 => "00000010", 9 => "00000010", 13 => "00000010", 17 => "00000010", others => (others =>'0'));        
+                count<=58;
+                
+            elsif count = 58 then
+                --test #58 SERGIO E MARCO matrice 4x4 con 1° riga e 1° colonna inferiori alla soglia, il resto superiore
+                RAM <= (2 => "00000100", 3 => "00000100", 4 => "00000011", 5 => "00000010", 6 => "00000010", 7 => "00000010", 8 => "00000010", 9 => "00000010", 13 => "00000010", 17 => "00000010", others => ("00000101"));        
+                count<=59;
+                
+           elsif count = 59 then
+               --test #59 SERGIO E MARCO matrice 4x4 con due soli valori sopra la soglia (1x2 e 3x3)
+               RAM <= (2 => "00000100", 3 => "00000100", 4 => "00000001", 6 => "00000010", 13 => "00000010", others => (others =>'0'));
+               count<=60;
+               
+          elsif count = 60 then
+              --test #60 SERGIO E MARCO matrice 4x4 con il solo valore in basso a dx maggiore della soglia
+              RAM <= (2 => "00000100", 3 => "00000100", 4 => "00000001", 20 => "00000010", others => (others =>'0'));
+              count<=61;  
+         
+          elsif count = 61 then
+              --test #61 SERGIO E MARCO matrice 4x4 con il solo valore in basso a dx minore della soglia
+              RAM <= (2 => "00000100", 3 => "00000100", 4 => "00000001", 20 => "00000000", others => ("11111111"));
+              count<=62;
+              
+          elsif count = 62 then
+              --test #62 SERGIO E MARCO matrice 1x1 con valore minore della soglia
+              RAM <= (2 => "00000001", 3 => "00000001", 4 => "00000001", 5 => "00000000", others => ("00000000"));
+              count<=63;  
+              
+          elsif count = 63 then
+                  --test #63 SERGIO E MARCO matrice 1x1 con valore maggiore della soglia
+                  RAM <= (2 => "00000001", 3 => "00000001", 4 => "00000001", 5 => "00000100", others => ("00000000"));
+                  count<=64;
+                    
+          elsif count = 64 then
+                  --test #64 SERGIO E MARCO matrice 4x4 con tre valori maggiori della soglia (2x1, 2x4, 4x2)
+                  RAM <= (2 => "00000100", 3 => "00000100", 4 => "00000001", 9 => "00000100", 12 => "00000100", 18 => "00000100", others => (others =>'0'));
+                  count<=65;
+                  
+          elsif count = 65 then
+                  --test #65 SERGIO E MARCO matrice 4x4 con due valori maggiori della soglia (4x1, 3x2)
+                  RAM <= (2 => "00000100", 3 => "00000100", 4 => "00000001", 14 => "00000100", 17 => "00000100", others => (others =>'0'));
+                  count<=66;                                                              
+                       
             end if;   
                
           else
@@ -321,22 +377,22 @@ MEM : process(tb_clk)
 test : process is
 begin 
 
---        --test # 0
---        wait for 100 ns;
---        wait for c_CLOCK_PERIOD;
---        tb_rst <= '1';
---        wait for c_CLOCK_PERIOD;
---        tb_rst <= '0';
---        wait for c_CLOCK_PERIOD;
---        tb_start <= '1';
---        wait for c_CLOCK_PERIOD;
---        tb_start <= '0';
---        wait until tb_done = '1';
---        wait until tb_done = '0';
---        wait until rising_edge(tb_clk);
+        --test # 0
+        wait for 100 ns;
+        wait for c_CLOCK_PERIOD;
+        tb_rst <= '1';
+        wait for c_CLOCK_PERIOD;
+        tb_rst <= '0';
+        wait for c_CLOCK_PERIOD;
+        tb_start <= '1';
+        wait for c_CLOCK_PERIOD;
+        tb_start <= '0';
+        wait until tb_done = '1';
+        wait until tb_done = '0';
+        wait until rising_edge(tb_clk);
 
---        assert RAM(1) = "00000000" report "FAIL high bits" severity failure;
---        assert RAM(0) = "00010101" report "FAIL low bits" severity failure;
+        assert RAM(1) = "00000000" report "FAIL high bits" severity failure;
+        assert RAM(0) = "00010101" report "FAIL low bits" severity failure;
 
         --test # 1
         wait for 100 ns;
@@ -1262,6 +1318,193 @@ begin
                        
           assert RAM(1) = "11111110" report "FAIL high bits" severity failure;
           assert RAM(0) = "00000001" report "FAIL low bits" severity failure;
+          
+        --test #55
+          wait for 100 ns;
+          wait for c_CLOCK_PERIOD;
+          tb_rst <= '1';
+          wait for c_CLOCK_PERIOD;
+          tb_rst <= '0';
+          wait for c_CLOCK_PERIOD;
+          tb_start <= '1';
+          wait for c_CLOCK_PERIOD;
+          tb_start <= '0';
+          wait until tb_done = '1';
+          wait until tb_done = '0';
+          wait until rising_edge(tb_clk);
+  
+          assert RAM(1) = "11111110" report "FAIL high bits" severity failure;
+          assert RAM(0) = "00000001" report "FAIL low bits" severity failure;   
+          
+        --test #56
+            wait for 100 ns;
+            wait for c_CLOCK_PERIOD;
+            tb_rst <= '1';
+            wait for c_CLOCK_PERIOD;
+            tb_rst <= '0';
+            wait for c_CLOCK_PERIOD;
+            tb_start <= '1';
+            wait for c_CLOCK_PERIOD;
+            tb_start <= '0';
+            wait until tb_done = '1';
+            wait until tb_done = '0';
+            wait until rising_edge(tb_clk);
+    
+            assert RAM(1) = "11111110" report "FAIL high bits" severity failure;
+            assert RAM(0) = "00000001" report "FAIL low bits" severity failure; 
+            
+        --test #57
+              wait for 100 ns;
+              wait for c_CLOCK_PERIOD;
+              tb_rst <= '1';
+              wait for c_CLOCK_PERIOD;
+              tb_rst <= '0';
+              wait for c_CLOCK_PERIOD;
+              tb_start <= '1';
+              wait for c_CLOCK_PERIOD;
+              tb_start <= '0';
+              wait until tb_done = '1';
+              wait until tb_done = '0';
+              wait until rising_edge(tb_clk);
+      
+              assert RAM(1) = "00000000" report "FAIL high bits" severity failure;
+              assert RAM(0) = "00010000" report "FAIL low bits" severity failure;  
+              
+        --test #58
+                wait for 100 ns;
+                wait for c_CLOCK_PERIOD;
+                tb_rst <= '1';
+                wait for c_CLOCK_PERIOD;
+                tb_rst <= '0';
+                wait for c_CLOCK_PERIOD;
+                tb_start <= '1';
+                wait for c_CLOCK_PERIOD;
+                tb_start <= '0';
+                wait until tb_done = '1';
+                wait until tb_done = '0';
+                wait until rising_edge(tb_clk);
+        
+                assert RAM(1) = "00000000" report "FAIL high bits" severity failure;
+                assert RAM(0) = "00001001" report "FAIL low bits" severity failure;
+                
+        --test #59
+                wait for 100 ns;
+                wait for c_CLOCK_PERIOD;
+                tb_rst <= '1';
+                wait for c_CLOCK_PERIOD;
+                tb_rst <= '0';
+                wait for c_CLOCK_PERIOD;
+                tb_start <= '1';
+                wait for c_CLOCK_PERIOD;
+                tb_start <= '0';
+                wait until tb_done = '1';
+                wait until tb_done = '0';
+                wait until rising_edge(tb_clk);
+        
+                assert RAM(1) = "00000000" report "FAIL high bits" severity failure;
+                assert RAM(0) = "00000110" report "FAIL low bits" severity failure;
+                
+        --test #60
+            wait for 100 ns;
+            wait for c_CLOCK_PERIOD;
+            tb_rst <= '1';
+            wait for c_CLOCK_PERIOD;
+            tb_rst <= '0';
+            wait for c_CLOCK_PERIOD;
+            tb_start <= '1';
+            wait for c_CLOCK_PERIOD;
+            tb_start <= '0';
+            wait until tb_done = '1';
+            wait until tb_done = '0';
+            wait until rising_edge(tb_clk);
+    
+            assert RAM(1) = "00000000" report "FAIL high bits" severity failure;
+            assert RAM(0) = "00000001" report "FAIL low bits" severity failure;
+            
+        --test #61
+            wait for 100 ns;
+            wait for c_CLOCK_PERIOD;
+            tb_rst <= '1';
+            wait for c_CLOCK_PERIOD;
+            tb_rst <= '0';
+            wait for c_CLOCK_PERIOD;
+            tb_start <= '1';
+            wait for c_CLOCK_PERIOD;
+            tb_start <= '0';
+            wait until tb_done = '1';
+            wait until tb_done = '0';
+            wait until rising_edge(tb_clk);
+    
+            assert RAM(1) = "00000000" report "FAIL high bits" severity failure;
+            assert RAM(0) = "00010000" report "FAIL low bits" severity failure;
+            
+        --test #62
+                wait for 100 ns;
+                wait for c_CLOCK_PERIOD;
+                tb_rst <= '1';
+                wait for c_CLOCK_PERIOD;
+                tb_rst <= '0';
+                wait for c_CLOCK_PERIOD;
+                tb_start <= '1';
+                wait for c_CLOCK_PERIOD;
+                tb_start <= '0';
+                wait until tb_done = '1';
+                wait until tb_done = '0';
+                wait until rising_edge(tb_clk);
+        
+                assert RAM(1) = "00000000" report "FAIL high bits" severity failure;
+                assert RAM(0) = "00000000" report "FAIL low bits" severity failure;
+                
+        --test #63
+                wait for 100 ns;
+                wait for c_CLOCK_PERIOD;
+                tb_rst <= '1';
+                wait for c_CLOCK_PERIOD;
+                tb_rst <= '0';
+                wait for c_CLOCK_PERIOD;
+                tb_start <= '1';
+                wait for c_CLOCK_PERIOD;
+                tb_start <= '0';
+                wait until tb_done = '1';
+                wait until tb_done = '0';
+                wait until rising_edge(tb_clk);
+        
+                assert RAM(1) = "00000000" report "FAIL high bits" severity failure;
+                assert RAM(0) = "00000001" report "FAIL low bits" severity failure;
+                
+        --test #64
+                wait for 100 ns;
+                wait for c_CLOCK_PERIOD;
+                tb_rst <= '1';
+                wait for c_CLOCK_PERIOD;
+                tb_rst <= '0';
+                wait for c_CLOCK_PERIOD;
+                tb_start <= '1';
+                wait for c_CLOCK_PERIOD;
+                tb_start <= '0';
+                wait until tb_done = '1';
+                wait until tb_done = '0';
+                wait until rising_edge(tb_clk);
+        
+                assert RAM(1) = "00000000" report "FAIL high bits" severity failure;
+                assert RAM(0) = "00001100" report "FAIL low bits" severity failure; 
+                    
+        --test #65
+                wait for 100 ns;
+                wait for c_CLOCK_PERIOD;
+                tb_rst <= '1';
+                wait for c_CLOCK_PERIOD;
+                tb_rst <= '0';
+                wait for c_CLOCK_PERIOD;
+                tb_start <= '1';
+                wait for c_CLOCK_PERIOD;
+                tb_start <= '0';
+                wait until tb_done = '1';
+                wait until tb_done = '0';
+                wait until rising_edge(tb_clk);
+        
+                assert RAM(1) = "00000000" report "FAIL high bits" severity failure;
+                assert RAM(0) = "00000100" report "FAIL low bits" severity failure;                                                                                                                                      
 
 
 
@@ -1269,4 +1512,4 @@ begin
 assert false report "Simulation Ended!, test passed" severity failure;
 end process test;
 
-end projecttb; 
+end projecttb;
