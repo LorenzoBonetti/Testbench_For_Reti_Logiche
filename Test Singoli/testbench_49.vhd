@@ -20,7 +20,7 @@ signal   mem_we		: std_logic;
 
 type ram_type is array (65535 downto 0) of std_logic_vector(7 downto 0);
 --test #49 FEDE prima riga completa
-RAM <= (2 => "10000000", 3 =>"10000000",4 => "01000000", 5=>"11001100", 132=>"11000111", others => (others =>'0'));
+signal RAM:ram_type:=(2 => "10000000", 3 =>"10000000",4 => "01000000", 5=>"11001100", 132=>"11000111", others => (others =>'0'));
 
 component project_reti_logiche is 
     port (
