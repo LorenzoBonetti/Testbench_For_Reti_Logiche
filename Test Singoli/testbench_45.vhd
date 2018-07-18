@@ -20,7 +20,7 @@ signal   mem_we		: std_logic;
 
 type ram_type is array (65535 downto 0) of std_logic_vector(7 downto 0);
 --test con una sola casella
-RAM <= (2 => "00000001", 3 =>"00000001",4 => "00000101", 5=>"01111111",others => (others =>'0'));
+signal RAM:ram_type:=(2 => "00000001", 3 =>"00000001",4 => "00000101", 5=>"01111111",others => (others =>'0'));
 
 
 component project_reti_logiche is 
