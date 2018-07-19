@@ -19,8 +19,8 @@ signal   enable_wire  		: std_logic;
 signal   mem_we		: std_logic;
 
 type ram_type is array (65535 downto 0) of std_logic_vector(7 downto 0);
---test con una sola casella
-RAM <= (2 => "00000001", 3 =>"00000001",4 => "00000101", 5=>"01111111",others => (others =>'0'));
+--test RAFFA tutta ultima colonna piena
+signal RAM:ram_type:=(2 => "00000100", 3 =>"00000111",4 => "00000101", 8=>"01111111", 12=>"01111111", 16=>"01111111", 20=>"01111111", 24=>"01111111", 28=>"01111111", 32=>"01111111", others => (others =>'0'));
 
 
 component project_reti_logiche is 
@@ -90,7 +90,7 @@ wait until tb_done = '1';
 wait until tb_done = '0';
 wait until rising_edge(tb_clk); 
 assert RAM(1) = "00000000" report "FAIL high bits" severity failure;
-assert RAM(0) = "00000001" report "FAIL low bits" severity failure;
+assert RAM(0) = "00000111" report "FAIL low bits" severity failure;
        
 
 
